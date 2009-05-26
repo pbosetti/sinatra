@@ -922,7 +922,8 @@ module Sinatra
         servers = Array(self.server)
         servers.each do |server_name|
           begin
-            return Rack::Handler.get(server_name.downcase)
+            server_name = (server_name == 'webrick' ? 'WEBrick' : server_name.capitalize)
+            return Rack::Handler.get(server_name)
           rescue LoadError
           rescue NameError
           end
